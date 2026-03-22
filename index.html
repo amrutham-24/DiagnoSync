@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Radiology Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+        .result, .report, .logs {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .result { background: #e0f2fe; }
+        .report { background: #ecfdf5; }
+        .logs { background: #fef9c3; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<header>🧠 AI Radiology Assistant</header>
+
+<div class="container">
+
+    <h3>Upload Medical Image</h3>
+    <input type="file" id="imageInput" accept="image/*">
+    <br>
+    <button onclick="analyzeImage()">Analyze</button>
+
+    <div id="preview"></div>
+
+    <div class="result" id="result" style="display:none;"></div>
+    <div class="report" id="report" style="display:none;"></div>
+    <div class="logs" id="logs" style="display:none;"></div>
+
+</div>
+
+<script>
+function analyzeImage() {
+    const fileInput = document.getElementById('imageInput');
+    const preview = document.getElementById('preview');
+    const result = document.getElementById('result');
+    const report = document.getElementById('report');
+    const logs = document.getElementById('logs');
+
+    if (!fileInput.files.length) {
+        alert("Please upload an image first.");
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        preview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
+    };
+
+    reader.readAsDataURL(file);
+
+    // 🔥 Fake AI response (replace with backend later)
+    setTimeout(() => {
+        result.style.display = "block";
+        report.style.display = "block";
+        logs.style.display = "block";
+
+        result.innerHTML = `
+            <strong>Result:</strong> Pneumonia Detected<br>
+            <strong>Confidence:</strong> 87%
+        `;
+
+        report.innerHTML = `
+            <strong>Report:</strong><br>
+            Scan Type: Chest X-ray<br>
+            Findings: Signs of Pneumonia detected<br>
+            Recommendation: Further clinical evaluation advised
+        `;
+
+        logs.innerHTML = `
+✔ Image uploaded<br>
+✔ Scan classified<br>
+✔ AI analysis completed<br>
+✔ Report generated<br>
+✔ Stored in system
+        `;
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
